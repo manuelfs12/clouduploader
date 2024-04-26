@@ -1,15 +1,31 @@
 #!/bin/bash
 
-# get arguments
+S3URI=$BASH_ARGV
+
 if [ $# -lt 2 ]
 then
   echo "Usage: clouduploader <source_file> <S3Uri>"
 fi
 
-# check if file exist
-test -f "$1" && FILE=$1 && echo "$FILE exist."|| echo "File not found." && exit
+for argument in "$@"
+do
+  if [ "$argument" == "$BASH_ARGV" ]
+  then
+    break
+  fi
+  if [ ! -f "$argument" ]
+  then
+    echo "File does not exist."
+    exit
+  fi
+done
 
-# File upload using AWS cli, pass argument 1 as source and last argument as s3 destination
-S3URI=$BASH_ARGV
-# aws s3 argument1 argument2
-aws s3 cp "$FILE" "$S3URI"
+for argument in "$@"
+do
+  if [ "$argument" == "$BASH_ARGV" ]
+    then
+      echo "Upload complete!"
+      exit
+  fi
+  aws s3 cp "$argument" "$S3URI"
+done
