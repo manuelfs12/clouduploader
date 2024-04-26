@@ -9,6 +9,8 @@ then
 fi
 
 # check if file exist
+FILE=$1
+test -f "$FILE" && echo "$FILE exist" || echo "$FILE does not exist."
 # feedback if file note found
 
 # File upload using AWS cli, pass argument 1 as source and last argument as s3 destination
