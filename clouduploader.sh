@@ -7,7 +7,7 @@ then
 fi
 
 # check if file exist
-test -f "$1" && FILE=$1 && echo "$FILE exist."|| echo "$1 not found."
+test -f "$1" && FILE=$1 && echo "$FILE exist."|| echo "File not found." && exit
 
 # File upload using AWS cli, pass argument 1 as source and last argument as s3 destination
 S3URI=$BASH_ARGV
