@@ -4,7 +4,7 @@ S3URI=$BASH_ARGV
 
 if [ $# -lt 2 ]
 then
-  echo "Usage: clouduploader <source_file> <S3Uri>"
+  echo "Usage: clouduploader <filePath> <S3Uri>"
 fi
 
 for argument in "$@"
@@ -28,4 +28,9 @@ do
       exit
   fi
   aws s3 cp "$argument" "$S3URI"
+  if [ $? -eq 1 ]
+  then
+    echo "Error uploading file."
+    exit
+  fi
 done
